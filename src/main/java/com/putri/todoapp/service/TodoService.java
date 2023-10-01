@@ -9,4 +9,5 @@ public interface TodoService {
     void addTodo(String todoDescription);
     void deleteTodo(Integer id);
     void updateTodoStatus(Integer id, Boolean status);
+
 }

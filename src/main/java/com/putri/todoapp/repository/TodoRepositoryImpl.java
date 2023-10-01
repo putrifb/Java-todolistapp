@@ -16,7 +16,13 @@ public class TodoRepositoryImpl implements TodoRepository{
 
     @Override
     public List<Todo> findByStatus(Boolean status) {
-        return null;
+        List<Todo> result = new ArrayList<>();
+        for (Todo todo : todolist) {
+            if (todo.getStatus() != null && todo.getStatus().equals(status)) {
+                result.add(todo);
+            }
+        }
+        return result;
         //TODO by mputt
     }
 
@@ -27,23 +33,21 @@ public class TodoRepositoryImpl implements TodoRepository{
 
     @Override
     public Boolean deleteById(Integer id) {
-        return todolist.remove(id);
+        if ( id >= 1 && id < todolist.size()) {
+            todolist.remove(id - 1);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Boolean updateStatusById(Integer id, Boolean status) {
 
-        for (Todo todo : todolist) {
-            if (todo.getID().equals(id)) {
-               todo.setStatus(status);
-               return true;
-            }
+        if (id >= 1 && id <= todolist.size()) {
+            Todo todo = todolist.get(id - 1);
+            todo.setStatus(status);
+            return true;
         }
-//        Todo todo = todolist.get(id);
-//        if (todo != null) {
-//            todo.setStatus(status);
-//            return true;
-//        }
         return false;
     }
 }

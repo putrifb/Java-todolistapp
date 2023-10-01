@@ -49,39 +49,24 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void deleteTodo(Integer id) {
-        List<Todo> todoList = todoRepository.findAll();
+        Boolean isDeleted = todoRepository.deleteById(id);
 
-        for (Todo todo : todoList) {
-            Integer todoId = todo.getID();
-
-            if (todoId != null && todoId.equals(id)) {
-                todoRepository.deleteById(id);
-                System.out.println("Todo successfully deleted");
-                return;
-            }
+        if (isDeleted) {
+            System.out.println("Todo successfully deleted");
+        } else {
+            System.out.println("Todo with ID " + id + " not found.");
         }
-        System.out.println("Todo with Todo with ID " + id + " not found.");
-//        todoRepository.deleteById(id);
-//        System.out.println("Todo successfully deleted");
     }
 
     @Override
     public void updateTodoStatus(Integer id, Boolean status) {
-//        return null;
-//        todoRepository.updateStatusById(id, status);
-//        System.out.println("Todo successfully updated status");
-        List<Todo> todoList = todoRepository.findAll();
 
-        for (Todo todo : todoList) {
-            Integer todoId = todo.getID();
+        Boolean isUpdated = todoRepository.updateStatusById(id, status);
 
-            if (todoId != null && todoId.equals(id)) {
-                todoRepository.updateStatusById(id, status);
-                System.out.println("Todo successfully updated status");
-                return;
-            }
+        if (isUpdated) {
+            System.out.println("Todo status updated successfully.");
+        } else {
+            System.out.println("Todo with ID " + id + " not found.");
         }
-
-        System.out.println("Todo with ID " + id + " not found.");
     }
 }

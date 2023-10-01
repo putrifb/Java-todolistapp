@@ -10,4 +10,5 @@ public interface TodoRepository {
     Boolean addOne(Todo todo);
     Boolean deleteById(Integer id);
     Boolean updateStatusById(Integer id, Boolean status);
+//    Todo todoByIndex(Integer index);
 }
