@@ -35,14 +35,9 @@ public class TodoRepositoryImpl implements TodoRepository{
     public Boolean deleteById(Integer id) {
         Integer index = id - 1;
 
-        if (index < 0 || index >= todolist.size() || todolist.get(index) == null) {
+        if (index < 0 || index >= todolist.size()) {
             return false;
         }
-
-        for (Integer i = index; i < todolist.size() - 1; i++) {
-            todolist.set(i, todolist.get(i + 1));
-        }
-
         todolist.remove(todolist.size() - 1);
         return true;
     }

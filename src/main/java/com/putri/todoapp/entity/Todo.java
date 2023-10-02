@@ -13,7 +13,7 @@ import lombok.Setter;
 public class Todo {
     private String description;
     private Boolean status;
-    private Integer Id;
+
 
 
 //    public boolean isStatus() {
