@@ -33,16 +33,22 @@ public class TodoRepositoryImpl implements TodoRepository{
 
     @Override
     public Boolean deleteById(Integer id) {
-        if ( id >= 1 && id < todolist.size()) {
-            todolist.remove(id - 1);
-            return true;
+        Integer index = id - 1;
+
+        if (index < 0 || index >= todolist.size() || todolist.get(index) == null) {
+            return false;
         }
-        return false;
+
+        for (Integer i = index; i < todolist.size() - 1; i++) {
+            todolist.set(i, todolist.get(i + 1));
+        }
+
+        todolist.remove(todolist.size() - 1);
+        return true;
     }
 
     @Override
     public Boolean updateStatusById(Integer id, Boolean status) {
-
         if (id >= 1 && id <= todolist.size()) {
             Todo todo = todolist.get(id - 1);
             todo.setStatus(status);
@@ -50,4 +56,14 @@ public class TodoRepositoryImpl implements TodoRepository{
         }
         return false;
     }
+
+//    @Override
+//    public Todo findTodoByIndex(Integer index) {
+//        for (Todo todo : todolist) {
+//            if (todo.getId() == index) {
+//                return todo;
+//            }
+//        }
+//        return null;
+//    }
 }

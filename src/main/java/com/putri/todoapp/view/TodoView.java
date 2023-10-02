@@ -28,20 +28,39 @@ public class TodoView {
 
             String chosenMenu = InputUtil.input("Choose menu (number only) : ");
 
-            if (chosenMenu.equals("1")) {
-                showTodo();
-            } else if (chosenMenu.equals("2")) {
-                addTodo();
-            } else if (chosenMenu.equals("3")) {
-                updateTodo();
-            } else if (chosenMenu.equals("4")) {
-                deleteTodo();
-            } else if (chosenMenu.equals("5")) {
-                break;
-            } else {
-                System.out.println("Input Not Valid");
+//            if (chosenMenu.equals("1")) {
+//                showTodo();
+//            } else if (chosenMenu.equals("2")) {
+//                addTodo();
+//            } else if (chosenMenu.equals("3")) {
+//                updateTodo();
+//            } else if (chosenMenu.equals("4")) {
+//                deleteTodo();
+//            } else if (chosenMenu.equals("5")) {
+//                break;
+//            } else {
+//                System.out.println("Input Not Valid");
+//            }
+
+            switch (chosenMenu) {
+                case "1":
+                    showTodo();
+                    break;
+                case "2":
+                    addTodo();
+                    break;
+                case "3":
+                    updateTodo();
+                    break;
+                case "4":
+                    deleteTodo();
+                    break;
+                case "5":
+                    return;  // Exit the loop and quit the app
+                default:
+                    System.out.println("Input Not Valid");
+                    break;
             }
-//
         }
     }
     private void showTodo() {
@@ -77,8 +96,18 @@ public class TodoView {
     private void deleteTodo() {
         System.out.println("DELETE TODO");
 
-        String todoId = InputUtil.input("Input todo ID to delete : ");
-        todoService.deleteTodo(Integer.valueOf(todoId));
+        String todoIdString = InputUtil.input("Input todo ID to delete : ");
+        if (todoIdString.isEmpty()) {
+            System.out.println("Todo ID cannot be empty.");
+            return;
+        }
+
+        try {
+            int todoId = Integer.parseInt(todoIdString);
+            todoService.deleteTodo(todoId);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input for todo ID. Please enter a valid integer.");
+        }
     }
     private void updateTodo() {
         System.out.println("UPDATE TODO STATUS");

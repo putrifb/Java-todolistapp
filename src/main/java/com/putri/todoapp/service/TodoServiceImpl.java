@@ -49,9 +49,8 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void deleteTodo(Integer id) {
-        Boolean isDeleted = todoRepository.deleteById(id);
-
-        if (isDeleted) {
+        Boolean todoDelete = todoRepository.deleteById(id);
+        if (todoDelete) {
             System.out.println("Todo successfully deleted");
         } else {
             System.out.println("Todo with ID " + id + " not found.");
